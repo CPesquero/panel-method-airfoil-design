@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "panelfoil"
+version = "1.0.0"
+description = "Panel method for NACA 4-digit airfoils: validation against XFOIL and inverse design"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Lucas García Franco" },
+    { name = "Carlos Pesquero Cañizares" },
+]
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.22", "matplotlib>=3.5"]
+keywords = ["aerodynamics", "panel method", "airfoil", "NACA", "XFOIL", "aerospace"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.5", "nbclient>=0.7", "ipykernel"]
+
+[project.scripts]
+panelfoil = "panelfoil.cli:main"
+
+[project.urls]
+Repository = "https://github.com/CPesquero/panel-method-airfoil-design"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"panelfoil.data" = ["*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 110
+target-version = "py39"
+extend-exclude = ["*.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "NPY"]
+ignore = ["E741"]
+
+[tool.ruff.lint.per-file-ignores]
+"notebooks/*" = ["E402"]
